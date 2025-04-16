@@ -1,6 +1,5 @@
-
 import { motion } from 'framer-motion';
-import { Mail, GitHub, Linkedin, Phone } from 'lucide-react';
+import { Mail, Github, Linkedin, Phone } from 'lucide-react';
 
 const Contact = () => {
   return (
@@ -32,7 +31,7 @@ const Contact = () => {
                 </a>
                 <div className="flex gap-6 mt-6">
                   <a href="#" className="hover:text-purple-600 transition-colors">
-                    <GitHub size={24} />
+                    <Github size={24} />
                   </a>
                   <a href="#" className="hover:text-purple-600 transition-colors">
                     <Linkedin size={24} />
