@@ -36,7 +36,7 @@ const Index = () => {
 
   return (
     <ThemeProvider>
-      <div className="bg-gradient-to-br from-white to-purple-50 dark:from-gray-900 dark:to-purple-900 min-h-screen">
+      <div className="bg-gradient-to-br from-[#1A1F2C] via-[#403E43] to-[#221F26] dark:from-[#0A0E14] dark:via-[#1C2130] dark:to-[#101320] min-h-screen overflow-hidden">
         <Navigation />
         <Hero />
         <About />
