@@ -7,19 +7,19 @@ const experiences = [
     position: "Senior Frontend Developer",
     company: "Tech Solutions Inc.",
     duration: "2022 - Present",
-    description: "Lead the development of responsive web applications using React, TypeScript, and Tailwind CSS. Implemented state management solutions and optimized application performance."
+    description: "Lead the development of responsive web applications using React, TypeScript, and Tailwind CSS."
   },
   {
     position: "Frontend Developer",
     company: "Digital Innovations",
     duration: "2020 - 2022",
-    description: "Developed and maintained multiple client websites. Collaborated with designers to implement UI/UX improvements and ensure cross-browser compatibility."
+    description: "Developed and maintained multiple client websites and collaborated with designers."
   },
   {
     position: "Web Developer Intern",
     company: "StartUp Ventures",
     duration: "2019 - 2020",
-    description: "Assisted in the development of web applications. Gained hands-on experience with modern JavaScript frameworks and version control systems."
+    description: "Assisted in the development of web applications with modern JavaScript frameworks."
   }
 ];
 
@@ -38,8 +38,8 @@ const Experience = () => {
           </h2>
           
           <div className="relative">
-            {/* Timeline Path */}
-            <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 top-0 bottom-0 w-0.5 bg-blue-500/30" />
+            {/* Timeline Path - Visible only on desktop */}
+            <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 top-0 bottom-0 w-0.5 bg-blue-500/30 hidden md:block" />
             
             <div className="space-y-12">
               {experiences.map((exp, index) => (
@@ -57,21 +57,22 @@ const Experience = () => {
                   
                   <div className={`ml-6 md:ml-0 md:grid md:grid-cols-2 ${
                     index % 2 === 0 ? 'md:text-right' : ''
-                  }`}>
-                    <div className={`md:pr-8 ${index % 2 !== 0 ? 'md:col-start-2' : ''}`}>
-                      <h3 className="text-xl font-bold text-blue-300">{exp.position}</h3>
-                      <p className="text-gray-400">{exp.company}</p>
-                      <p className="flex items-center text-sm text-gray-500 mt-1 md:justify-start">
-                        <Calendar size={14} className="mr-1" />
-                        {exp.duration}
-                      </p>
-                    </div>
-                    
-                    <div className={`mt-4 md:mt-0 md:pl-8 ${index % 2 !== 0 ? 'md:col-start-1 md:row-start-1' : ''}`}>
-                      <div className="flex items-start">
-                        <Briefcase className="mr-2 flex-shrink-0 mt-1 text-blue-400" size={18} />
-                        <p className="text-gray-300">{exp.description}</p>
+                  } gap-8`}>
+                    <div className={`${index % 2 !== 0 ? 'md:col-start-2' : ''}`}>
+                      <div className="glass p-4 rounded-xl">
+                        <h3 className="text-xl font-bold text-blue-300">{exp.position}</h3>
+                        <p className="text-gray-400">{exp.company}</p>
+                        <p className="flex items-center text-sm text-gray-500 mt-1 md:justify-start">
+                          <Calendar size={14} className="mr-1" />
+                          {exp.duration}
+                        </p>
+                        <div className="mt-3">
+                          <p className="text-gray-300 text-sm">{exp.description}</p>
+                        </div>
                       </div>
+                    </div>
+                    <div className={`${index % 2 !== 0 ? 'md:col-start-1 md:row-start-1' : ''}`}>
+                      {/* Empty div to maintain grid layout */}
                     </div>
                   </div>
                 </motion.div>

@@ -1,7 +1,7 @@
 
 import { motion } from 'framer-motion';
 import { useEffect, useState, useRef } from 'react';
-import { ArrowDown } from 'lucide-react';
+import { ArrowDown, ExternalLink } from 'lucide-react';
 
 const Hero = () => {
   const [currentText, setCurrentText] = useState('');
@@ -59,6 +59,14 @@ const Hero = () => {
     };
   }, [currentSkillIndex, currentText, isDeleting]);
 
+  // Quick links data
+  const quickLinks = [
+    { name: "LinkedIn", url: "https://linkedin.com" },
+    { name: "GitHub", url: "https://github.com" },
+    { name: "Portfolio", url: "https://portfolio.com" },
+    { name: "Resume", url: "https://resume.com" }
+  ];
+
   return (
     <section id="home" className="relative min-h-screen flex flex-col items-center justify-center pt-16 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -92,6 +100,27 @@ const Hero = () => {
             with modern web technologies.
           </motion.p>
           
+          {/* Quick links */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.5 }}
+            className="flex flex-wrap justify-center items-center gap-3 mb-10"
+          >
+            {quickLinks.map((link, index) => (
+              <a
+                key={index}
+                href={link.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1 px-4 py-1.5 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm text-sm text-blue-100 transition-all duration-300"
+              >
+                {link.name}
+                <ExternalLink size={14} />
+              </a>
+            ))}
+          </motion.div>
+          
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
@@ -114,7 +143,7 @@ const Hero = () => {
         </div>
       </div>
       
-      {/* Scroll down indicator */}
+      {/* Centered scroll down indicator */}
       <motion.a
         href="#skills"
         initial={{ opacity: 0, y: 10 }}
