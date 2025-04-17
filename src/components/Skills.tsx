@@ -1,16 +1,16 @@
 
 import { motion } from 'framer-motion';
-import { Code, Database, Terminal, Layout, Server, Settings, Globe, Cpu, Figma, Github } from 'lucide-react';
+import { Code, Database, Terminal, Layout, Server, Settings, Globe, Cpu, Figma, Github, React as ReactIcon, Typescript, Html5, Css3 } from 'lucide-react';
 
 const skills = [
   {
     "Frontend": [
-      { name: "React", icon: <Code /> },
-      { name: "TypeScript", icon: <Code /> },
+      { name: "React", icon: <ReactIcon /> },
+      { name: "TypeScript", icon: <Typescript /> },
       { name: "Next.js", icon: <Globe /> },
       { name: "Tailwind CSS", icon: <Layout /> },
-      { name: "HTML5", icon: <Layout /> },
-      { name: "CSS3", icon: <Layout /> }
+      { name: "HTML5", icon: <Html5 /> },
+      { name: "CSS3", icon: <Css3 /> }
     ]
   },
   {
@@ -44,12 +44,12 @@ const skills = [
 
 const Skills = () => {
   return (
-    <section id="skills" className="relative min-h-screen flex items-center justify-center py-20">
+    <section id="skills" className="relative min-h-screen flex items-center justify-center py-20 bg-gradient-to-br from-black via-blue-900 to-black">
       <div className="floating-blob blob-1"></div>
       <div className="floating-blob blob-2"></div>
       <div className="floating-blob blob-3"></div>
       
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
@@ -71,7 +71,7 @@ const Skills = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="skill-category"
+                className="skill-category bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-105"
               >
                 <h3 className="text-xl font-semibold mb-5 text-center text-blue-400">{category}</h3>
                 <div className="grid grid-cols-2 gap-4">
@@ -82,9 +82,9 @@ const Skills = () => {
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.3, delay: i * 0.1 }}
                       className="flex items-center gap-2 group"
-                      whileHover={{ scale: 1.05 }}
+                      whileHover={{ scale: 1.1 }}
                     >
-                      <span className="skill-icon text-lg">{skill.icon}</span>
+                      <span className="skill-icon text-lg text-blue-300">{skill.icon}</span>
                       <span className="text-gray-300 group-hover:text-white transition-colors">{skill.name}</span>
                     </motion.div>
                   ))}
@@ -93,9 +93,10 @@ const Skills = () => {
             );
           })}
         </div>
-      </motion.div>
+      </div> {/* Closing div for max-w-7xl container */}
     </section>
   );
 };
 
 export default Skills;
+
