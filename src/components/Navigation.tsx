@@ -1,10 +1,25 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Get the hero section height to determine when to change nav background
+      const heroSection = document.getElementById('home');
+      const heroHeight = heroSection?.offsetHeight || 0;
+      
+      // Set isScrolled to true when we've scrolled past hero section
+      setIsScrolled(window.scrollY > heroHeight - 100);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const menuItems = [
     { name: 'Home', href: '#home' },
@@ -15,7 +30,7 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="fixed w-full z-50 bg-transparent">
+    <nav className={`fixed w-full z-50 transition-all duration-300 ${isScrolled ? 'bg-black/80 backdrop-blur-md' : 'bg-transparent'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <motion.div

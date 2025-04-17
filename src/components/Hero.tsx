@@ -46,7 +46,11 @@ const Hero = () => {
   }, [currentSkillIndex, currentText, isDeleting]);
 
   return (
-    <section id="home" className="min-h-screen flex flex-col items-center justify-center pt-16 pb-20">
+    <section id="home" className="relative min-h-screen flex flex-col items-center justify-center pt-16 pb-20 bg-gradient-to-br from-black via-blue-900 to-black">
+      <div className="floating-blob blob-1"></div>
+      <div className="floating-blob blob-2"></div>
+      <div className="floating-blob blob-3"></div>
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <motion.div

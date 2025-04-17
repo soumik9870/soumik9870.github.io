@@ -25,7 +25,11 @@ const experiences = [
 
 const Experience = () => {
   return (
-    <section id="experience" className="min-h-screen flex items-center justify-center py-20">
+    <section id="experience" className="relative min-h-screen flex items-center justify-center py-20 bg-gradient-to-br from-black via-blue-900 to-black">
+      <div className="floating-blob blob-1"></div>
+      <div className="floating-blob blob-2"></div>
+      <div className="floating-blob blob-3"></div>
+      
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0 }}
