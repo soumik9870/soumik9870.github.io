@@ -1,6 +1,6 @@
 
 import { motion } from 'framer-motion';
-import { Code, Database, Terminal, Layout, Server, Settings, Globe, Cpu, Figma, Git } from 'lucide-react';
+import { Code, Database, Terminal, Layout, Server, Settings, Globe, Cpu, Figma, Github } from 'lucide-react';
 
 const skills = [
   {
@@ -24,8 +24,8 @@ const skills = [
   },
   {
     "Tools": [
-      { name: "Git", icon: <Git /> },
-      { name: "GitHub", icon: <Git /> },
+      { name: "Git", icon: <Github /> },
+      { name: "GitHub", icon: <Github /> },
       { name: "VS Code", icon: <Code /> },
       { name: "Docker", icon: <Cpu /> },
       { name: "Figma", icon: <Figma /> },
