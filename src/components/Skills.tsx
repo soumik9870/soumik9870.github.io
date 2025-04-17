@@ -1,6 +1,7 @@
 
 import { motion } from 'framer-motion';
 import { Code, Database, Terminal, Layout, Server, Settings, Globe, Cpu, Figma, Github, Brackets, FileBadge, FileJson } from 'lucide-react';
+import Education from './Education';
 
 const skills = [
   {
@@ -44,12 +45,11 @@ const skills = [
 
 const Skills = () => {
   return (
-    <section id="skills" className="relative min-h-screen flex items-center justify-center py-20 bg-gradient-to-br from-black via-blue-900 to-black">
-      <div className="floating-blob blob-1"></div>
-      <div className="floating-blob blob-2"></div>
-      <div className="floating-blob blob-3"></div>
-      
+    <section id="skills" className="relative min-h-screen flex items-center justify-center py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+        {/* Education Section */}
+        <Education />
+        
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}

@@ -7,6 +7,7 @@ import Projects from '../components/Projects';
 import Skills from '../components/Skills';
 import Contact from '../components/Contact';
 import { ThemeProvider } from '../contexts/ThemeContext';
+import { Toaster } from '@/components/ui/sonner';
 
 const Index = () => {
   // Smooth scroll behavior
@@ -36,7 +37,7 @@ const Index = () => {
 
   return (
     <ThemeProvider>
-      <div className="min-h-screen overflow-hidden relative">
+      <div className="min-h-screen overflow-hidden relative bg-gradient-to-br from-black via-blue-900 to-black">
         {/* Global floating blobs */}
         <div className="floating-blob blob-1"></div>
         <div className="floating-blob blob-2"></div>
@@ -44,10 +45,13 @@ const Index = () => {
         
         <Navigation />
         <Hero />
+        <Skills />
         <Experience />
         <Projects />
-        <Skills />
         <Contact />
+        
+        {/* Add Sonner Toast */}
+        <Toaster position="top-right" />
       </div>
     </ThemeProvider>
   );

@@ -1,6 +1,20 @@
 
 import { motion } from 'framer-motion';
-import { Github, Link } from 'lucide-react';
+import { Github, Link, Code, Database, Globe, Layout, FileJson, Brackets, FileBadge } from 'lucide-react';
+
+const iconMap = {
+  "React": <Code className="h-4 w-4" />,
+  "Node.js": <Code className="h-4 w-4" />,
+  "MongoDB": <Database className="h-4 w-4" />,
+  "Express": <Globe className="h-4 w-4" />,
+  "TypeScript": <FileJson className="h-4 w-4" />,
+  "Firebase": <Database className="h-4 w-4" />,
+  "Tailwind CSS": <Layout className="h-4 w-4" />,
+  "Chart.js": <Layout className="h-4 w-4" />,
+  "OpenWeather API": <Globe className="h-4 w-4" />,
+  "HTML5": <Brackets className="h-4 w-4" />,
+  "CSS3": <FileBadge className="h-4 w-4" />
+};
 
 const projects = [
   {
@@ -28,11 +42,7 @@ const projects = [
 
 const Projects = () => {
   return (
-    <section id="projects" className="relative min-h-screen flex items-center justify-center py-20 bg-gradient-to-br from-black via-blue-900 to-black">
-      <div className="floating-blob blob-1"></div>
-      <div className="floating-blob blob-2"></div>
-      <div className="floating-blob blob-3"></div>
-      
+    <section id="projects" className="relative min-h-screen flex items-center justify-center py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0 }}
@@ -49,19 +59,24 @@ const Projects = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="glass p-6 rounded-xl project-card"
+                className="glass p-6 rounded-xl project-card group"
                 whileHover={{ scale: 1.03 }}
               >
                 <h3 className="text-xl font-semibold mb-3 text-blue-300">{project.title}</h3>
                 <p className="text-gray-300 mb-4">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tech.map((tech, i) => (
-                    <span
+                    <div
                       key={i}
-                      className="px-2 py-1 text-xs rounded-full bg-white/10 backdrop-blur-sm text-blue-300"
+                      className="relative px-2 py-1 rounded-full bg-white/10 backdrop-blur-sm"
                     >
-                      {tech}
-                    </span>
+                      <span className="flex items-center text-blue-300 group-hover:opacity-0 transition-opacity">
+                        {iconMap[tech as keyof typeof iconMap]}
+                      </span>
+                      <span className="absolute inset-0 flex items-center justify-center text-xs text-blue-300 opacity-0 group-hover:opacity-100 transition-opacity">
+                        {tech}
+                      </span>
+                    </div>
                   ))}
                 </div>
                 <div className="flex gap-4">

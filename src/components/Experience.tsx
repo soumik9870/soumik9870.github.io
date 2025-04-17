@@ -1,6 +1,6 @@
 
 import { motion } from 'framer-motion';
-import { Briefcase, Calendar } from 'lucide-react';
+import { Briefcase, Calendar, CircleDot } from 'lucide-react';
 
 const experiences = [
   {
@@ -25,11 +25,7 @@ const experiences = [
 
 const Experience = () => {
   return (
-    <section id="experience" className="relative min-h-screen flex items-center justify-center py-20 bg-gradient-to-br from-black via-blue-900 to-black">
-      <div className="floating-blob blob-1"></div>
-      <div className="floating-blob blob-2"></div>
-      <div className="floating-blob blob-3"></div>
-      
+    <section id="experience" className="relative min-h-screen flex items-center justify-center py-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <motion.div
           initial={{ opacity: 0 }}
@@ -41,31 +37,46 @@ const Experience = () => {
             Work Experience
           </h2>
           
-          <div className="space-y-12">
-            {experiences.map((exp, index) => (
-              <motion.div
-                key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="flex flex-col md:flex-row gap-4"
-              >
-                <div className="md:w-1/3">
-                  <h3 className="text-xl font-bold text-blue-300">{exp.position}</h3>
-                  <p className="text-gray-400">{exp.company}</p>
-                  <p className="flex items-center text-sm text-gray-500 mt-1">
-                    <Calendar size={14} className="mr-1" />
-                    {exp.duration}
-                  </p>
-                </div>
-                <div className="md:w-2/3">
-                  <div className="flex items-start">
-                    <Briefcase className="mr-2 flex-shrink-0 mt-1 text-blue-400" size={18} />
-                    <p className="text-gray-300">{exp.description}</p>
+          <div className="relative">
+            {/* Timeline Path */}
+            <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 top-0 bottom-0 w-0.5 bg-blue-500/30" />
+            
+            <div className="space-y-12">
+              {experiences.map((exp, index) => (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  className="relative"
+                >
+                  {/* Timeline dot */}
+                  <div className="absolute left-[-8px] md:left-1/2 md:-translate-x-1/2 top-0">
+                    <CircleDot size={16} className="text-blue-400" />
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                  
+                  <div className={`ml-6 md:ml-0 md:grid md:grid-cols-2 ${
+                    index % 2 === 0 ? 'md:text-right' : ''
+                  }`}>
+                    <div className={`md:pr-8 ${index % 2 !== 0 ? 'md:col-start-2' : ''}`}>
+                      <h3 className="text-xl font-bold text-blue-300">{exp.position}</h3>
+                      <p className="text-gray-400">{exp.company}</p>
+                      <p className="flex items-center text-sm text-gray-500 mt-1 md:justify-start">
+                        <Calendar size={14} className="mr-1" />
+                        {exp.duration}
+                      </p>
+                    </div>
+                    
+                    <div className={`mt-4 md:mt-0 md:pl-8 ${index % 2 !== 0 ? 'md:col-start-1 md:row-start-1' : ''}`}>
+                      <div className="flex items-start">
+                        <Briefcase className="mr-2 flex-shrink-0 mt-1 text-blue-400" size={18} />
+                        <p className="text-gray-300">{exp.description}</p>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
           </div>
         </motion.div>
       </div>

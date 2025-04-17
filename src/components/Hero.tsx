@@ -1,141 +1,138 @@
 
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail } from 'lucide-react';
-import { useEffect, useState } from 'react';
-
-const skills = [
-  "Software Developer",
-  "TypeScript Enthusiast",
-  "React Developer",
-  "Frontend Engineer", 
-  "UI/UX Designer"
-];
+import { useEffect, useState, useRef } from 'react';
+import { ArrowDown } from 'lucide-react';
 
 const Hero = () => {
-  const [currentSkillIndex, setCurrentSkillIndex] = useState(0);
   const [currentText, setCurrentText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
-
+  const [currentSkillIndex, setCurrentSkillIndex] = useState(0);
+  const [delta, setDelta] = useState(200 - Math.random() * 100);
+  
+  const skills = [
+    "Frontend Developer",
+    "UI/UX Enthusiast",
+    "React Developer",
+    "TypeScript Expert"
+  ];
+  
+  const typingRef = useRef<NodeJS.Timeout | null>(null);
+  
   useEffect(() => {
-    const typingSpeed = isDeleting ? 50 : 150;
-    const currentSkill = skills[currentSkillIndex];
-
-    if (!isDeleting && currentText === currentSkill) {
-      // Pause at the end of typing
-      const timeout = setTimeout(() => {
+    const tick = () => {
+      const currentSkill = skills[currentSkillIndex];
+      
+      // Handle text update based on whether we're deleting or typing
+      if (isDeleting) {
+        setCurrentText(currentText.substring(0, currentText.length - 1));
+      } else {
+        setCurrentText(currentSkill.substring(0, currentText.length + 1));
+      }
+      
+      // Set typing speed
+      let newDelta = isDeleting ? 100 : 200;
+      
+      // If we've finished typing current word
+      if (!isDeleting && currentText === currentSkill) {
+        // Pause at the end
+        newDelta = 2000;
         setIsDeleting(true);
-      }, 1500);
-      return () => clearTimeout(timeout);
-    }
+      } else if (isDeleting && currentText === '') {
+        // Move to next word
+        setIsDeleting(false);
+        setCurrentSkillIndex((currentSkillIndex + 1) % skills.length);
+        newDelta = 500;
+      }
+      
+      setDelta(newDelta);
+    };
     
-    if (isDeleting && currentText === '') {
-      setIsDeleting(false);
-      setCurrentSkillIndex((prev) => (prev + 1) % skills.length);
-      return;
-    }
+    // Clear any existing timeout
+    if (typingRef.current) clearTimeout(typingRef.current);
     
-    const timeout = setTimeout(() => {
-      setCurrentText(prev => 
-        isDeleting 
-          ? prev.slice(0, -1) 
-          : currentSkill.slice(0, prev.length + 1)
-      );
-    }, typingSpeed);
+    // Set new timeout
+    typingRef.current = setTimeout(tick, delta);
     
-    return () => clearTimeout(timeout);
+    // Cleanup
+    return () => {
+      if (typingRef.current) clearTimeout(typingRef.current);
+    };
   }, [currentSkillIndex, currentText, isDeleting]);
 
   return (
-    <section id="home" className="relative min-h-screen flex flex-col items-center justify-center pt-16 pb-20 bg-gradient-to-br from-black via-blue-900 to-black">
-      <div className="floating-blob blob-1"></div>
-      <div className="floating-blob blob-2"></div>
-      <div className="floating-blob blob-3"></div>
-      
+    <section id="home" className="relative min-h-screen flex flex-col items-center justify-center pt-16 pb-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
+            initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.8 }}
           >
-            <div className="w-32 h-32 mx-auto mb-8 rounded-full overflow-hidden bg-gradient-to-r from-blue-500 to-purple-600 p-1">
-              <div className="w-full h-full rounded-full overflow-hidden">
-                <img
-                  src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?q=80&w=1000&auto=format&fit=crop"
-                  alt="Profile"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            </div>
-          </motion.div>
-
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-4xl sm:text-6xl font-bold text-gray-100 mb-4"
-          >
-            Hi, I'm <span className="text-blue-400">John Doe</span>
-          </motion.h1>
-
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.4 }}
-            className="text-xl text-gray-300 mb-4 h-8"
-          >
-            <span className="typing-animation">{currentText}</span>
-          </motion.p>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.6 }}
-            className="flex justify-center space-x-6 mb-12"
-          >
-            <a
-              href="https://github.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-300 hover:text-blue-400 transition-colors duration-300"
-            >
-              <Github size={24} />
-            </a>
-            <a
-              href="https://linkedin.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-gray-300 hover:text-blue-400 transition-colors duration-300"
-            >
-              <Linkedin size={24} />
-            </a>
-            <a
-              href="mailto:john@example.com"
-              className="text-gray-300 hover:text-blue-400 transition-colors duration-300"
-            >
-              <Mail size={24} />
-            </a>
+            <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">
+              John Doe
+            </h1>
           </motion.div>
           
-          {/* About Section */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-2xl md:text-3xl font-light mb-8 text-blue-300"
+          >
+            <span className="typing-animation">{currentText}</span>
+          </motion.div>
+          
+          <motion.p
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="max-w-2xl mx-auto text-lg text-gray-300 mb-10"
+          >
+            Passionate about creating beautiful, functional, and user-friendly digital experiences
+            with modern web technologies.
+          </motion.p>
+          
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            className="glass p-8 rounded-2xl max-w-3xl mx-auto"
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.6 }}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <h2 className="text-2xl font-bold mb-4 text-blue-400">
-              About Me
-            </h2>
-            <p className="text-gray-300">
-              I'm a passionate software developer with expertise in modern web technologies.
-              I specialize in front-end development with React and TypeScript, 
-              constantly exploring new ways to create elegant solutions to complex problems.
-              When I'm not coding, you can find me contributing to open-source or attending tech meetups.
-            </p>
+            <a 
+              href="#contact" 
+              className="px-8 py-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300"
+            >
+              Get in Touch
+            </a>
+            <a 
+              href="#projects" 
+              className="px-8 py-3 bg-transparent border border-white/30 backdrop-blur-sm text-white rounded-lg hover:bg-white/10 transition-all duration-300"
+            >
+              View Projects
+            </a>
           </motion.div>
         </div>
       </div>
+      
+      {/* Scroll down indicator */}
+      <motion.a
+        href="#skills"
+        initial={{ opacity: 0, y: 10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ 
+          duration: 0.8, 
+          delay: 1,
+          repeat: Infinity,
+          repeatType: "reverse",
+          repeatDelay: 0.2,
+        }}
+        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/70 hover:text-white transition-colors"
+      >
+        <div className="flex flex-col items-center">
+          <span className="text-sm mb-2">Scroll Down</span>
+          <ArrowDown size={20} />
+        </div>
+      </motion.a>
     </section>
   );
 };
