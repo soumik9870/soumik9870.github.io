@@ -36,7 +36,12 @@ const Index = () => {
 
   return (
     <ThemeProvider>
-      <div className="min-h-screen overflow-hidden">
+      <div className="min-h-screen overflow-hidden relative">
+        {/* Global floating blobs */}
+        <div className="floating-blob blob-1"></div>
+        <div className="floating-blob blob-2"></div>
+        <div className="floating-blob blob-3"></div>
+        
         <Navigation />
         <Hero />
         <Experience />
