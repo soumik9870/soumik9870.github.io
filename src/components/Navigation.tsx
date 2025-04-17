@@ -1,28 +1,27 @@
+
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Menu, X, Moon, Sun } from 'lucide-react';
-import { useTheme } from '../contexts/ThemeContext';
+import { Menu, X } from 'lucide-react';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { theme, toggleTheme } = useTheme();
 
   const menuItems = [
     { name: 'Home', href: '#home' },
-    { name: 'About', href: '#about' },
+    { name: 'Experience', href: '#experience' },
     { name: 'Projects', href: '#projects' },
     { name: 'Skills', href: '#skills' },
     { name: 'Contact', href: '#contact' },
   ];
 
   return (
-    <nav className="fixed w-full z-50 glass">
+    <nav className="fixed w-full z-50 bg-transparent">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <motion.div
             initial={{ opacity: 0, x: -20 }}
             animate={{ opacity: 1, x: 0 }}
-            className="text-2xl font-bold bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent"
+            className="text-2xl font-bold text-blue-300"
           >
             DevPortfolio
           </motion.div>
@@ -33,30 +32,18 @@ const Navigation = () => {
               <a
                 key={item.name}
                 href={item.href}
-                className="text-gray-700 dark:text-gray-300 hover:text-purple-600 transition-colors duration-300"
+                className="text-gray-300 hover:text-blue-400 transition-colors duration-300"
               >
                 {item.name}
               </a>
             ))}
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
-            >
-              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
           </div>
 
           {/* Mobile Navigation Button */}
-          <div className="md:hidden flex items-center gap-4">
-            <button
-              onClick={toggleTheme}
-              className="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-800 transition-colors"
-            >
-              {theme === 'dark' ? <Sun size={20} /> : <Moon size={20} />}
-            </button>
+          <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-700 dark:text-gray-300 hover:text-purple-600 transition-colors duration-300"
+              className="text-gray-300 hover:text-blue-400 transition-colors duration-300"
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -71,12 +58,12 @@ const Navigation = () => {
             exit={{ opacity: 0, y: -20 }}
             className="md:hidden"
           >
-            <div className="px-2 pt-2 pb-3 space-y-1">
+            <div className="px-2 pt-2 pb-3 space-y-1 bg-black/70 backdrop-blur-sm rounded-lg mt-2">
               {menuItems.map((item) => (
                 <a
                   key={item.name}
                   href={item.href}
-                  className="block px-3 py-2 text-gray-700 dark:text-gray-300 hover:text-purple-600 transition-colors duration-300"
+                  className="block px-3 py-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"
                   onClick={() => setIsOpen(false)}
                 >
                   {item.name}

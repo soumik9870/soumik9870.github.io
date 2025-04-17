@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import Navigation from '../components/Navigation';
 import Hero from '../components/Hero';
-import About from '../components/About';
+import Experience from '../components/Experience';
 import Projects from '../components/Projects';
 import Skills from '../components/Skills';
 import Contact from '../components/Contact';
@@ -36,10 +36,10 @@ const Index = () => {
 
   return (
     <ThemeProvider>
-      <div className="bg-gradient-to-br from-[#1A1F2C] via-[#403E43] to-[#221F26] dark:from-[#0A0E14] dark:via-[#1C2130] dark:to-[#101320] min-h-screen overflow-hidden">
+      <div className="min-h-screen overflow-hidden">
         <Navigation />
         <Hero />
-        <About />
+        <Experience />
         <Projects />
         <Skills />
         <Contact />

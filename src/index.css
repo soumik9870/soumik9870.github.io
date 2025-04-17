@@ -54,7 +54,7 @@
   }
 
   body {
-    @apply bg-gradient-to-br from-[#1A1F2C] via-[#403E43] to-[#221F26] dark:from-[#0A0E14] dark:via-[#1C2130] dark:to-[#101320] text-gray-100 dark:text-white antialiased;
+    @apply bg-gradient-to-br from-[#051937] via-[#12284d] to-[#000] text-gray-100 antialiased;
   }
 
   html {
@@ -64,6 +64,24 @@
 
 @layer utilities {
   .glass {
-    @apply bg-white/10 dark:bg-white/5 backdrop-blur-lg border border-white/10 dark:border-white/5 shadow-lg;
+    @apply bg-white/5 backdrop-blur-lg border border-white/10 shadow-lg;
   }
+}
+
+.typing-animation::after {
+  content: '|';
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+.skill-icon {
+  @apply text-blue-400 group-hover:text-blue-300 transition-colors duration-300;
 }
