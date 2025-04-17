@@ -1,16 +1,16 @@
 
 import { motion } from 'framer-motion';
-import { Code, Database, Terminal, Layout, Server, Settings, Globe, Cpu, Figma, Github, React as ReactIcon, Typescript, Html5, Css3 } from 'lucide-react';
+import { Code, Database, Terminal, Layout, Server, Settings, Globe, Cpu, Figma, Github, Brackets, FileBadge, FileJson } from 'lucide-react';
 
 const skills = [
   {
     "Frontend": [
-      { name: "React", icon: <ReactIcon /> },
-      { name: "TypeScript", icon: <Typescript /> },
+      { name: "React", icon: <Code /> },
+      { name: "TypeScript", icon: <FileJson /> },
       { name: "Next.js", icon: <Globe /> },
       { name: "Tailwind CSS", icon: <Layout /> },
-      { name: "HTML5", icon: <Html5 /> },
-      { name: "CSS3", icon: <Css3 /> }
+      { name: "HTML5", icon: <Brackets /> },
+      { name: "CSS3", icon: <FileBadge /> }
     ]
   },
   {
@@ -93,10 +93,9 @@ const Skills = () => {
             );
           })}
         </div>
-      </div> {/* Closing div for max-w-7xl container */}
+      </div>
     </section>
   );
 };
 
 export default Skills;
-
