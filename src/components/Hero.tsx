@@ -1,7 +1,6 @@
-
 import { motion } from 'framer-motion';
 import { useEffect, useState, useRef } from 'react';
-import { ArrowDown, ExternalLink } from 'lucide-react';
+import { ArrowDown, ExternalLink, Github, Linkedin, FileText, Globe } from 'lucide-react';
 
 const Hero = () => {
   const [currentText, setCurrentText] = useState('');
@@ -59,12 +58,12 @@ const Hero = () => {
     };
   }, [currentSkillIndex, currentText, isDeleting]);
 
-  // Quick links data
+  // Quick links data with icons
   const quickLinks = [
-    { name: "LinkedIn", url: "https://linkedin.com" },
-    { name: "GitHub", url: "https://github.com" },
-    { name: "Portfolio", url: "https://portfolio.com" },
-    { name: "Resume", url: "https://resume.com" }
+    { name: "GitHub", icon: <Github size={24} />, url: "https://github.com" },
+    { name: "LinkedIn", icon: <Linkedin size={24} />, url: "https://linkedin.com" },
+    { name: "Portfolio", icon: <Globe size={24} />, url: "https://portfolio.com" },
+    { name: "Resume", icon: <FileText size={24} />, url: "https://resume.com" }
   ];
 
   return (
@@ -105,7 +104,7 @@ const Hero = () => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 0.5 }}
-            className="flex flex-wrap justify-center items-center gap-3 mb-10"
+            className="flex flex-wrap justify-center items-center gap-6 mb-10"
           >
             {quickLinks.map((link, index) => (
               <a
@@ -113,10 +112,19 @@ const Hero = () => {
                 href={link.url}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-1 px-4 py-1.5 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm text-sm text-blue-100 transition-all duration-300"
+                className="group relative p-3 rounded-full bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-all duration-300 hover:scale-110"
+                aria-label={link.name}
               >
-                {link.name}
-                <ExternalLink size={14} />
+                <motion.div
+                  whileHover={{ rotate: 360 }}
+                  transition={{ duration: 0.3 }}
+                  className="text-blue-400 group-hover:text-blue-300"
+                >
+                  {link.icon}
+                </motion.div>
+                <span className="absolute -bottom-8 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition-opacity text-sm text-blue-300">
+                  {link.name}
+                </span>
               </a>
             ))}
           </motion.div>
@@ -155,12 +163,10 @@ const Hero = () => {
           repeatType: "reverse",
           repeatDelay: 0.2,
         }}
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 text-white/70 hover:text-white transition-colors"
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/70 hover:text-white transition-colors flex flex-col items-center"
       >
-        <div className="flex flex-col items-center">
-          <span className="text-sm mb-2">Scroll Down</span>
-          <ArrowDown size={20} />
-        </div>
+        <span className="text-sm mb-2">Scroll Down</span>
+        <ArrowDown size={20} />
       </motion.a>
     </section>
   );

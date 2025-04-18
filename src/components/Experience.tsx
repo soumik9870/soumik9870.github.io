@@ -1,6 +1,5 @@
-
 import { motion } from 'framer-motion';
-import { Briefcase, Calendar, CircleDot } from 'lucide-react';
+import { Briefcase, Calendar } from 'lucide-react';
 
 const experiences = [
   {
@@ -38,7 +37,6 @@ const Experience = () => {
           </h2>
           
           <div className="relative">
-            {/* Timeline Path - Visible only on desktop */}
             <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 top-0 bottom-0 w-0.5 bg-blue-500/30 hidden md:block" />
             
             <div className="space-y-12">
@@ -50,29 +48,25 @@ const Experience = () => {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="relative"
                 >
-                  {/* Timeline dot */}
                   <div className="absolute left-[-8px] md:left-1/2 md:-translate-x-1/2 top-0">
-                    <CircleDot size={16} className="text-blue-400" />
+                    <Briefcase size={16} className="text-blue-400" />
                   </div>
                   
                   <div className={`ml-6 md:ml-0 md:grid md:grid-cols-2 ${
                     index % 2 === 0 ? 'md:text-right' : ''
                   } gap-8`}>
                     <div className={`${index % 2 !== 0 ? 'md:col-start-2' : ''}`}>
-                      <div className="glass p-4 rounded-xl">
+                      <div className="glass p-6 rounded-xl">
                         <h3 className="text-xl font-bold text-blue-300">{exp.position}</h3>
                         <p className="text-gray-400">{exp.company}</p>
-                        <p className="flex items-center text-sm text-gray-500 mt-1 md:justify-start">
+                        <div className={`flex items-center text-sm text-gray-500 mt-2 ${
+                          index % 2 === 0 ? 'md:justify-end' : ''
+                        }`}>
                           <Calendar size={14} className="mr-1" />
                           {exp.duration}
-                        </p>
-                        <div className="mt-3">
-                          <p className="text-gray-300 text-sm">{exp.description}</p>
                         </div>
+                        <p className="text-gray-300 text-sm mt-3">{exp.description}</p>
                       </div>
-                    </div>
-                    <div className={`${index % 2 !== 0 ? 'md:col-start-1 md:row-start-1' : ''}`}>
-                      {/* Empty div to maintain grid layout */}
                     </div>
                   </div>
                 </motion.div>

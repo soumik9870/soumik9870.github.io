@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
@@ -9,11 +8,9 @@ const Navigation = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Get the hero section height to determine when to change nav background
       const heroSection = document.getElementById('home');
       const heroHeight = heroSection?.offsetHeight || 0;
       
-      // Set isScrolled to true when we've scrolled past hero section
       setIsScrolled(window.scrollY > heroHeight - 100);
     };
 
@@ -30,7 +27,9 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-500 ${isScrolled ? 'bg-white/30 backdrop-blur-md' : 'bg-transparent'}`}>
+    <nav className={`fixed w-full z-50 transition-all duration-500 ${
+      isScrolled ? 'bg-white/70 backdrop-blur-md shadow-lg' : 'bg-transparent'
+    }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <motion.div
@@ -41,7 +40,6 @@ const Navigation = () => {
             DevPortfolio
           </motion.div>
 
-          {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {menuItems.map((item) => (
               <a
@@ -54,7 +52,6 @@ const Navigation = () => {
             ))}
           </div>
 
-          {/* Mobile Navigation Button */}
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
@@ -65,7 +62,6 @@ const Navigation = () => {
           </div>
         </div>
 
-        {/* Mobile Navigation Menu with AnimatePresence for animation */}
         <AnimatePresence>
           {isOpen && (
             <motion.div

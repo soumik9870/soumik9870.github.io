@@ -1,4 +1,3 @@
-
 import { motion } from 'framer-motion';
 import { Code, Database, Terminal, Layout, Server, Settings, Globe, Cpu, Figma, Github, Brackets, FileBadge, FileJson } from 'lucide-react';
 import Education from './Education';
@@ -62,7 +61,7 @@ const Skills = () => {
           <p className="text-gray-300 mt-4">The tools and technologies I work with</p>
         </motion.div>
         
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div className="grid md:grid-cols-2 gap-8">
           {skills.map((skillCategory, index) => {
             const [category, items] = Object.entries(skillCategory)[0];
             return (
@@ -71,21 +70,20 @@ const Skills = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="skill-category bg-gradient-to-br from-gray-800 to-gray-900 p-6 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-105"
+                className="skill-category bg-gradient-to-br from-gray-800 to-gray-900 p-8 rounded-xl shadow-lg transform transition-all duration-300 hover:scale-105 min-h-[300px]"
               >
-                <h3 className="text-xl font-semibold mb-5 text-center text-blue-400">{category}</h3>
-                <div className="grid grid-cols-2 gap-4">
+                <h3 className="text-2xl font-semibold mb-6 text-center text-blue-400">{category}</h3>
+                <div className="grid grid-cols-3 gap-6">
                   {items.map((skill, i) => (
                     <motion.div
                       key={i}
                       initial={{ opacity: 0, x: -20 }}
                       whileInView={{ opacity: 1, x: 0 }}
                       transition={{ duration: 0.3, delay: i * 0.1 }}
-                      className="flex items-center gap-2 group"
+                      className="flex flex-col items-center gap-2 group"
                       whileHover={{ scale: 1.1 }}
                     >
-                      <span className="skill-icon text-lg text-blue-300">{skill.icon}</span>
-                      <span className="text-gray-300 group-hover:text-white transition-colors">{skill.name}</span>
+                      <span className="skill-icon text-3xl">{skill.icon}</span>
                     </motion.div>
                   ))}
                 </div>

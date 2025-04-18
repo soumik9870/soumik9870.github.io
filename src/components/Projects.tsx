@@ -1,20 +1,17 @@
-
 import { motion } from 'framer-motion';
-import { Github, Link, Code, Database, Globe, Layout, FileJson, Brackets, FileBadge } from 'lucide-react';
+import { Github, Link, Code, Database, Globe, Layout, FileJson } from 'lucide-react';
 
-const iconMap = {
-  "React": <Code className="h-4 w-4" />,
-  "Node.js": <Code className="h-4 w-4" />,
-  "MongoDB": <Database className="h-4 w-4" />,
-  "Express": <Globe className="h-4 w-4" />,
-  "TypeScript": <FileJson className="h-4 w-4" />,
-  "Firebase": <Database className="h-4 w-4" />,
-  "Tailwind CSS": <Layout className="h-4 w-4" />,
-  "Chart.js": <Layout className="h-4 w-4" />,
-  "OpenWeather API": <Globe className="h-4 w-4" />,
-  "HTML5": <Brackets className="h-4 w-4" />,
-  "CSS3": <FileBadge className="h-4 w-4" />
-};
+const techIcons = {
+  "React": <Code className="h-5 w-5" />,
+  "Node.js": <Code className="h-5 w-5" />,
+  "MongoDB": <Database className="h-5 w-5" />,
+  "Express": <Globe className="h-5 w-5" />,
+  "TypeScript": <FileJson className="h-5 w-5" />,
+  "Firebase": <Database className="h-5 w-5" />,
+  "Tailwind CSS": <Layout className="h-5 w-5" />,
+  "Chart.js": <Layout className="h-5 w-5" />,
+  "OpenWeather API": <Globe className="h-5 w-5" />
+} as const;
 
 const projects = [
   {
@@ -64,18 +61,13 @@ const Projects = () => {
               >
                 <h3 className="text-xl font-semibold mb-3 text-blue-300">{project.title}</h3>
                 <p className="text-gray-300 mb-4">{project.description}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
+                <div className="flex flex-wrap gap-3 mb-4">
                   {project.tech.map((tech, i) => (
                     <div
                       key={i}
-                      className="relative px-2 py-1 rounded-full bg-white/10 backdrop-blur-sm"
+                      className="p-2 rounded-full bg-white/10 backdrop-blur-sm text-blue-300 hover:text-blue-400 transition-colors"
                     >
-                      <span className="flex items-center text-blue-300 group-hover:opacity-0 transition-opacity">
-                        {iconMap[tech as keyof typeof iconMap]}
-                      </span>
-                      <span className="absolute inset-0 flex items-center justify-center text-xs text-blue-300 opacity-0 group-hover:opacity-100 transition-opacity">
-                        {tech}
-                      </span>
+                      {techIcons[tech as keyof typeof techIcons]}
                     </div>
                   ))}
                 </div>
