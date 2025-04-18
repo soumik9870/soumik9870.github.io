@@ -1,6 +1,8 @@
+
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
+import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +12,6 @@ const Navigation = () => {
     const handleScroll = () => {
       const heroSection = document.getElementById('home');
       const heroHeight = heroSection?.offsetHeight || 0;
-      
       setIsScrolled(window.scrollY > heroHeight - 100);
     };
 
@@ -32,20 +33,43 @@ const Navigation = () => {
     }`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
-          <motion.div
-            initial={{ opacity: 0, x: -20 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="text-2xl font-bold text-blue-300"
-          >
-            DevPortfolio
-          </motion.div>
+          <AnimatePresence mode="wait">
+            {isScrolled ? (
+              <motion.div
+                key="logo"
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                className="text-2xl font-bold text-gray-800"
+              >
+                DevPortfolio
+              </motion.div>
+            ) : (
+              <motion.div
+                key="avatar"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.8 }}
+                className="w-10 h-10"
+              >
+                <Avatar className="w-10 h-10 border-2 border-blue-400">
+                  <AvatarImage src="https://github.com/shadcn.png" alt="Profile" />
+                  <AvatarFallback>JD</AvatarFallback>
+                </Avatar>
+              </motion.div>
+            )}
+          </AnimatePresence>
 
           <div className="hidden md:flex items-center space-x-8">
             {menuItems.map((item) => (
               <a
                 key={item.name}
                 href={item.href}
-                className="text-gray-300 hover:text-blue-400 transition-colors duration-300"
+                className={`transition-colors duration-300 ${
+                  isScrolled 
+                    ? 'text-gray-800 hover:text-blue-600' 
+                    : 'text-white hover:text-blue-400'
+                }`}
               >
                 {item.name}
               </a>
@@ -55,7 +79,9 @@ const Navigation = () => {
           <div className="md:hidden">
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="text-gray-300 hover:text-blue-400 transition-colors duration-300"
+              className={`transition-colors duration-300 ${
+                isScrolled ? 'text-gray-800' : 'text-white'
+              }`}
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -72,13 +98,21 @@ const Navigation = () => {
               className="md:hidden"
             >
               <motion.div 
-                className="px-2 pt-2 pb-3 space-y-1 bg-white/30 backdrop-blur-xl rounded-lg mt-2"
+                className={`px-2 pt-2 pb-3 space-y-1 rounded-lg mt-2 ${
+                  isScrolled 
+                    ? 'bg-white/90 backdrop-blur-xl' 
+                    : 'bg-black/30 backdrop-blur-xl'
+                }`}
               >
                 {menuItems.map((item, index) => (
                   <motion.a
                     key={item.name}
                     href={item.href}
-                    className="block px-3 py-2 text-gray-300 hover:text-blue-400 transition-colors duration-300"
+                    className={`block px-3 py-2 transition-colors duration-300 ${
+                      isScrolled 
+                        ? 'text-gray-800 hover:text-blue-600' 
+                        : 'text-white hover:text-blue-400'
+                    }`}
                     onClick={() => setIsOpen(false)}
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
