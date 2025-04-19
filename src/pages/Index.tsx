@@ -1,7 +1,7 @@
-
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import Navigation from '../components/Navigation';
 import Hero from '../components/Hero';
+import LoadingSpinner from '../components/LoadingSpinner';
 import Education from '../components/Education';
 import Experience from '../components/Experience';
 import Projects from '../components/Projects';
@@ -12,7 +12,17 @@ import { ThemeProvider } from '../contexts/ThemeContext';
 import { Toaster } from '@/components/ui/sonner';
 
 const Index = () => {
-  // Smooth scroll behavior
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    // Simulate loading time
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 1500);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   useEffect(() => {
     const handleScroll = (e: Event) => {
       e.preventDefault();
@@ -36,6 +46,10 @@ const Index = () => {
       });
     };
   }, []);
+
+  if (isLoading) {
+    return <LoadingSpinner />;
+  }
 
   return (
     <ThemeProvider>
