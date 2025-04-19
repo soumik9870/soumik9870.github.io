@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
@@ -61,16 +60,10 @@ const Navigation = () => {
                 exit={{ opacity: 0, scale: 0.8 }}
                 className="relative"
               >
-                <div className="relative">
-                  <Avatar className="w-10 h-10 border-2 border-blue-400">
-                    <AvatarImage src="https://github.com/shadcn.png" alt="Profile" />
-                    <AvatarFallback>JD</AvatarFallback>
-                  </Avatar>
-                  <span className="absolute -top-1 -right-1 w-3 h-3">
-                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                    <span className="relative inline-flex rounded-full h-3 w-3 bg-blue-500"></span>
-                  </span>
-                </div>
+                <Avatar className="w-10 h-10 border-2 border-blue-400">
+                  <AvatarImage src="https://github.com/shadcn.png" alt="Profile" />
+                  <AvatarFallback>JD</AvatarFallback>
+                </Avatar>
               </motion.div>
             )}
           </AnimatePresence>

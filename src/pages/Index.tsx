@@ -1,5 +1,5 @@
-
 import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import Navigation from '../components/Navigation';
 import Hero from '../components/Hero';
 import LoadingSpinner from '../components/LoadingSpinner';
@@ -16,7 +16,6 @@ const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    // Simulate loading time
     const timer = setTimeout(() => {
       setIsLoading(false);
     }, 1500);
@@ -24,29 +23,35 @@ const Index = () => {
     return () => clearTimeout(timer);
   }, []);
 
-  if (isLoading) {
-    return <LoadingSpinner />;
-  }
-
   return (
     <ThemeProvider>
-      <div className="min-h-screen overflow-hidden relative bg-gradient-to-br from-black via-blue-900 to-black">
-        {/* Global floating blobs */}
-        <div className="floating-blob blob-1"></div>
-        <div className="floating-blob blob-2"></div>
-        <div className="floating-blob blob-3"></div>
-        
-        <Navigation />
-        <Hero />
-        <Skills />
-        <Experience />
-        <Projects />
-        <Contact />
-        <ScrollToTop />
-        
-        {/* Add Sonner Toast */}
-        <Toaster position="top-right" />
-      </div>
+      <AnimatePresence mode="wait">
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.5 }}
+            className="min-h-screen overflow-hidden relative bg-gradient-to-br from-black via-blue-900 to-black"
+          >
+            <div className="floating-blob blob-1"></div>
+            <div className="floating-blob blob-2"></div>
+            <div className="floating-blob blob-3"></div>
+            
+            <Navigation />
+            <Hero />
+            <Skills />
+            <Experience />
+            <Projects />
+            <Contact />
+            <ScrollToTop />
+            
+            <Toaster position="top-right" />
+          </motion.div>
+        )}
+      </AnimatePresence>
     </ThemeProvider>
   );
 };
