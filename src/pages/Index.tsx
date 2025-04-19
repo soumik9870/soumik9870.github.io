@@ -1,3 +1,4 @@
+
 import { useEffect, useState } from 'react';
 import Navigation from '../components/Navigation';
 import Hero from '../components/Hero';
@@ -21,30 +22,6 @@ const Index = () => {
     }, 1500);
 
     return () => clearTimeout(timer);
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = (e: Event) => {
-      e.preventDefault();
-      const href = (e.currentTarget as HTMLAnchorElement).getAttribute('href');
-      if (href?.startsWith('#')) {
-        const element = document.querySelector(href);
-        if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
-        }
-      }
-    };
-
-    const links = document.querySelectorAll('a[href^="#"]');
-    links.forEach(link => {
-      link.addEventListener('click', handleScroll);
-    });
-
-    return () => {
-      links.forEach(link => {
-        link.removeEventListener('click', handleScroll);
-      });
-    };
   }, []);
 
   if (isLoading) {

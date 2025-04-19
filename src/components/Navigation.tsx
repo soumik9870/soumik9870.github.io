@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
@@ -25,6 +26,15 @@ const Navigation = () => {
     { name: 'Projects', href: '#projects' },
     { name: 'Contact', href: '#contact' },
   ];
+
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+    e.preventDefault();
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+      setIsOpen(false);
+    }
+  };
 
   return (
     <nav className={`fixed w-full z-50 transition-all duration-500 ${
@@ -68,9 +78,10 @@ const Navigation = () => {
               <a
                 key={item.name}
                 href={item.href}
+                onClick={(e) => handleNavClick(e, item.href)}
                 className={`transition-colors duration-300 ${
                   isScrolled 
-                    ? 'text-gray-800 hover:text-blue-600' 
+                    ? 'text-gray-200 hover:text-blue-400' 
                     : 'text-white hover:text-blue-400'
                 }`}
               >
@@ -83,7 +94,7 @@ const Navigation = () => {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className={`transition-colors duration-300 ${
-                isScrolled ? 'text-gray-800' : 'text-white'
+                isScrolled ? 'text-gray-200' : 'text-white'
               }`}
             >
               {isOpen ? <X size={24} /> : <Menu size={24} />}
@@ -116,7 +127,7 @@ const Navigation = () => {
                         ? 'text-gray-800 hover:text-blue-600' 
                         : 'text-white hover:text-blue-400'
                     }`}
-                    onClick={() => setIsOpen(false)}
+                    onClick={(e) => handleNavClick(e, item.href)}
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ delay: index * 0.05 }}
