@@ -1,3 +1,4 @@
+
 import { motion } from 'framer-motion';
 import { Briefcase, Calendar } from 'lucide-react';
 
@@ -37,7 +38,8 @@ const Experience = () => {
           </h2>
           
           <div className="relative">
-            <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 top-0 bottom-0 w-0.5 bg-blue-500/30 hidden md:block" />
+            {/* Timeline connector - visible on all screen sizes */}
+            <div className="absolute left-0 md:left-1/2 transform md:-translate-x-1/2 top-0 bottom-0 w-0.5 bg-white/30" />
             
             <div className="space-y-12">
               {experiences.map((exp, index) => (
@@ -48,8 +50,11 @@ const Experience = () => {
                   transition={{ duration: 0.5, delay: index * 0.1 }}
                   className="relative"
                 >
+                  {/* Timeline dot - adjusted for mobile */}
                   <div className="absolute left-[-8px] md:left-1/2 md:-translate-x-1/2 top-0">
-                    <Briefcase size={16} className="text-blue-400" />
+                    <div className="p-1 bg-blue-400/20 rounded-full">
+                      <Briefcase size={16} className="text-blue-400" />
+                    </div>
                   </div>
                   
                   <div className={`ml-6 md:ml-0 md:grid md:grid-cols-2 ${
