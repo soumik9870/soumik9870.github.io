@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { useEffect, useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { ArrowDown, ExternalLink, Github, Linkedin, FileText, Globe } from 'lucide-react';
 
 const Hero = () => {
@@ -150,24 +150,6 @@ const Hero = () => {
           </motion.div>
         </div>
       </div>
-      
-      {/* Centered scroll down indicator */}
-      <motion.a
-        href="#skills"
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ 
-          duration: 0.8, 
-          delay: 1,
-          repeat: Infinity,
-          repeatType: "reverse",
-          repeatDelay: 0.2,
-        }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 text-white/70 hover:text-white transition-colors flex flex-col items-center"
-      >
-        <span className="text-sm mb-2">Scroll Down</span>
-        <ArrowDown size={20} />
-      </motion.a>
     </section>
   );
 };
