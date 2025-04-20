@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
@@ -107,7 +108,7 @@ const Navigation = () => {
               className="md:hidden"
             >
               <motion.div 
-                className="px-2 pt-2 pb-3 space-y-1 rounded-lg mt-2 bg-black/30 backdrop-blur-xl"
+                className="px-2 pt-2 pb-3 space-y-1 rounded-lg mt-2 bg-black/30 backdrop-blur-xl border border-white/10"
               >
                 {menuItems.map((item, index) => (
                   <motion.a
