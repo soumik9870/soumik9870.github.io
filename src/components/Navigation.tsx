@@ -107,21 +107,13 @@ const Navigation = () => {
               className="md:hidden"
             >
               <motion.div 
-                className={`px-2 pt-2 pb-3 space-y-1 rounded-lg mt-2 ${
-                  isScrolled 
-                    ? 'bg-white/90 backdrop-blur-xl' 
-                    : 'bg-black/30 backdrop-blur-xl'
-                }`}
+                className="px-2 pt-2 pb-3 space-y-1 rounded-lg mt-2 bg-black/30 backdrop-blur-xl"
               >
                 {menuItems.map((item, index) => (
                   <motion.a
                     key={item.name}
                     href={item.href}
-                    className={`block px-3 py-2 transition-colors duration-300 ${
-                      isScrolled 
-                        ? 'text-gray-800 hover:text-blue-600' 
-                        : 'text-white hover:text-blue-400'
-                    }`}
+                    className="block px-3 py-2 text-white hover:text-blue-400 transition-colors duration-300"
                     onClick={(e) => handleNavClick(e, item.href)}
                     initial={{ opacity: 0, x: -10 }}
                     animate={{ opacity: 1, x: 0 }}
