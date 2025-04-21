@@ -92,38 +92,39 @@ const Projects = () => {
               opts={{
                 align: "center",
                 loop: true,
-                containScroll: "trimSnaps",
-                // Using slidesToScroll property which exists in the Embla API
-                // and correctly handling responsive behavior through CSS styling
-                breakpoints: {
-                  "(max-width: 768px)": { align: "center" },
-                  "(min-width: 769px)": { align: "center" }
-                }
+                dragFree: false,
+                containScroll: false,
+                slidesToScroll: 1,
               }}
             >
-              {/* Custom Nav arrows placed absolutely and centered vertically */}
-              <CarouselPrevious className="
-                  absolute left-0 z-30
-                  -translate-y-1/2 top-1/2
-                  bg-gradient-to-r from-[#141826]/80 via-[#232a43]/70 to-transparent
-                  backdrop-blur-lg border border-white/20
-                  shadow-md hover:shadow-blue-400/40
-                  text-blue-300/80 hover:text-purple-400
-                  hover:scale-105 transition-all duration-200
-                  ring-0 focus:outline-none focus:ring-2 focus:ring-blue-500/40
-                " aria-label="Previous projects"
-              />
-              <CarouselNext className="
-                  absolute right-0 z-30
-                  -translate-y-1/2 top-1/2
-                  bg-gradient-to-l from-[#141826]/80 via-[#232a43]/70 to-transparent
-                  backdrop-blur-lg border border-white/20
-                  shadow-md hover:shadow-blue-400/40
-                  text-blue-300/80 hover:text-purple-400
-                  hover:scale-105 transition-all duration-200
-                  ring-0 focus:outline-none focus:ring-2 focus:ring-blue-500/40
-                " aria-label="Next projects"
-              />
+              {/* Custom Nav arrows - only show on desktop */}
+              {!isMobile && (
+                <>
+                  <CarouselPrevious className="
+                    absolute left-0 z-30
+                    -translate-y-1/2 top-1/2
+                    bg-gradient-to-r from-[#141826]/80 via-[#232a43]/70 to-transparent
+                    backdrop-blur-lg border border-white/20
+                    shadow-md hover:shadow-blue-400/40
+                    text-blue-300/80 hover:text-purple-400
+                    hover:scale-105 transition-all duration-200
+                    ring-0 focus:outline-none focus:ring-2 focus:ring-blue-500/40
+                  " aria-label="Previous projects"
+                  />
+                  <CarouselNext className="
+                    absolute right-0 z-30
+                    -translate-y-1/2 top-1/2
+                    bg-gradient-to-l from-[#141826]/80 via-[#232a43]/70 to-transparent
+                    backdrop-blur-lg border border-white/20
+                    shadow-md hover:shadow-blue-400/40
+                    text-blue-300/80 hover:text-purple-400
+                    hover:scale-105 transition-all duration-200
+                    ring-0 focus:outline-none focus:ring-2 focus:ring-blue-500/40
+                  " aria-label="Next projects"
+                  />
+                </>
+              )}
+              
               <CarouselContent
                 className={`
                   flex justify-center items-stretch
