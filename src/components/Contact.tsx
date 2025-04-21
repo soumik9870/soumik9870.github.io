@@ -1,9 +1,8 @@
-
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Mail, Send, Phone, MapPin } from 'lucide-react';
-import { toast } from '@/components/ui/sonner';
+import { toast } from '@/hooks/use-toast';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
