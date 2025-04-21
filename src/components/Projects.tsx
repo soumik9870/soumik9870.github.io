@@ -8,18 +8,17 @@ import {
   Globe,
   Layout,
   FileJson,
-  ArrowLeft,
-  ArrowRight
 } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   CarouselPrevious,
-  CarouselNext
+  CarouselNext,
 } from "@/components/ui/carousel";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
 import { useRef } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const techIcons = {
   "React": <Code className="h-5 w-5" />,
@@ -58,32 +57,26 @@ const projects = [
 ];
 
 const cardVariants = {
-  initial: { opacity: 0, y: 30, scale: 0.96 },
-  animate: (i: number) => ({
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      delay: i * 0.13,
-      duration: 0.4,
-      ease: [0.4, 0, 0.2, 1]
-    }
-  }),
+  initial: { opacity: 0, y: 40, scale: 0.96 },
+  animate: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.35, ease: [0.4, 0, 0.2, 1] } },
   hover: {
-    scale: 1.04,
-    boxShadow: "0 8px 32px 0 rgba(93, 123, 250, 0.22)",
-    borderColor: "#6D6DFFa0"
+    scale: 1.05,
+    boxShadow: "0 10px 38px 0 rgba(93,123,250,0.30)",
+    borderColor: "#6D6DFFAA"
   }
 };
 
 const techVariants = {
   initial: { scale: 1, opacity: 0.85 },
-  hover: { scale: 1.22, opacity: 1, transition: { type: "spring", stiffness: 250, damping: 10 } }
+  hover: { scale: 1.17, opacity: 1, transition: { type: "spring", stiffness: 240, damping: 12 } }
 };
 
 const Projects = () => {
-  // Prevent flicker on animation in initial load.
+  const isMobile = useIsMobile();
   const firstCardRef = useRef<HTMLDivElement | null>(null);
+
+  // Responsive slidesToShow (1 for mobile, 3 for desktop)
+  const slidesToShow = isMobile ? 1 : 3;
 
   return (
     <section id="projects" className="relative w-full flex flex-col items-center justify-center py-20 min-h-[80vh] bg-transparent">
@@ -93,84 +86,108 @@ const Projects = () => {
           whileInView={{ opacity: 1 }}
           transition={{ duration: 0.6 }}
         >
-          <h2 className="text-3xl font-bold mb-10 text-center bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent tracking-tight">
+          <h2 className="text-3xl font-bold mb-12 text-center bg-gradient-to-r from-purple-600 to-blue-500 bg-clip-text text-transparent tracking-tight drop-shadow-lg">
             Featured Projects
           </h2>
           <div className="relative flex items-center justify-center w-full">
-            {/* Conditionally show nav arrows and carousel */}
             <Carousel
               className="mx-auto w-full max-w-5xl relative"
               opts={{
-                align: "start",
-                loop: true
+                align: "center",
+                loop: true,
+                slidesToScroll: 1,
+                breakpoints: {
+                  0: { slidesToScroll: 1, slidesToShow: 1 },
+                  768: { slidesToScroll: 1, slidesToShow: 3 }
+                }
               }}
             >
-              <CarouselPrevious className="left-0 md:-left-16 z-20 shadow-lg" aria-label="Previous projects" />
-              <CarouselNext className="right-0 md:-right-16 z-20 shadow-lg" aria-label="Next projects" />
-              <CarouselContent className="
-                  flex 
-                  md:grid md:grid-cols-3
-                  gap-8
-                  items-stretch
-                  md:gap-8
-                  py-8
-                  ">
+              {/* Custom Nav arrows placed absolutely and centered vertically */}
+              <CarouselPrevious className="
+                  absolute left-0 z-30
+                  -translate-y-1/2 top-1/2
+                  bg-gradient-to-r from-[#141826]/80 via-[#232a43]/70 to-transparent
+                  backdrop-blur-lg border border-white/20
+                  shadow-md hover:shadow-blue-400/40
+                  text-blue-300/80 hover:text-purple-400
+                  hover:scale-105 transition-all duration-200
+                  ring-0 focus:outline-none focus:ring-2 focus:ring-blue-500/40
+                " aria-label="Previous projects"
+              />
+              <CarouselNext className="
+                  absolute right-0 z-30
+                  -translate-y-1/2 top-1/2
+                  bg-gradient-to-l from-[#141826]/80 via-[#232a43]/70 to-transparent
+                  backdrop-blur-lg border border-white/20
+                  shadow-md hover:shadow-blue-400/40
+                  text-blue-300/80 hover:text-purple-400
+                  hover:scale-105 transition-all duration-200
+                  ring-0 focus:outline-none focus:ring-2 focus:ring-blue-500/40
+                " aria-label="Next projects"
+              />
+              <CarouselContent
+                className={`
+                  flex justify-center items-stretch
+                  gap-8 py-10
+                  transition-all duration-200
+                `}
+              >
                 {projects.map((project, i) => (
                   <CarouselItem
                     key={i}
-                    className="
-                      max-w-xs sm:max-w-sm md:max-w-sm lg:max-w-md
-                      flex !items-stretch
-                      md:w-auto
-                    "
+                    className={`
+                      flex !items-stretch justify-center
+                      ${isMobile ? "basis-full max-w-sm" : "basis-1/3 max-w-md"}
+                      transition-all duration-200
+                    `}
                   >
                     <motion.div
-                      className="
-                        w-full h-full
+                      className={`
+                        w-full h-full group cursor-pointer
                         flex flex-col
-                        rounded-2xl
-                        glass-morphism
-                        bg-gradient-to-br from-[#141826]/95 via-[#181f37]/85 to-[#080f23]/90
-                        border border-white/10
-                        shadow-2xl
-                        hover:shadow-blue-800/20
+                        rounded-3xl glass-morphism border-2 border-white/10
+                        shadow-2xl hover:shadow-blue-700/20
+                        bg-gradient-to-br from-[#191e2c]/95 via-[#232d62]/85 to-[#0e1121]/90
                         transition-all duration-300
-                        backdrop-blur-xl
-                        group cursor-pointer
+                        relative
+                        ${isMobile ? "mx-auto" : ""}
                         project-card
                         overflow-hidden
-                      "
+                      `}
                       variants={cardVariants}
                       initial="initial"
                       whileInView="animate"
                       whileHover="hover"
                       viewport={{ once: true, amount: 0.2 }}
-                      custom={i}
                       ref={i === 0 ? firstCardRef : undefined}
                     >
-                      <CardHeader className="pb-0">
-                        <CardTitle className="text-lg font-semibold text-blue-300 mb-2 group-hover:text-blue-400 transition-colors">
+                      <CardHeader className="pb-2">
+                        <CardTitle className="text-lg font-semibold text-blue-300 group-hover:text-blue-400 transition-colors drop-shadow">
                           {project.title}
                         </CardTitle>
-                        <CardDescription className="text-gray-300/90 mb-1">
+                        <CardDescription className="text-gray-300/90 mt-1">
                           {project.description}
                         </CardDescription>
                       </CardHeader>
                       <CardContent className="flex flex-col gap-3 flex-1">
-                        <div className="flex flex-wrap gap-2 mb-2 mt-2">
+                        {/* Tech icons row only (no names) */}
+                        <div className="flex flex-wrap gap-3 mb-3 mt-4">
                           {project.tech.map((tech, ti) => (
                             <motion.div
                               key={ti}
-                              className="
-                                p-2 rounded-full bg-white/5 border border-white/10
-                                backdrop-blur-sm text-blue-300 hover:text-blue-400
-                                cursor-pointer transition-all hover:scale-110
+                              className={`
+                                p-2 rounded-full bg-gradient-to-br from-blue-700/15 to-purple-800/5
+                                border border-white/10
+                                shadow hover:shadow-blue-700/10
+                                cursor-pointer
+                                transition-all
                                 flex items-center
-                              "
+                                tech-icon group-hover:bg-blue-800/10
+                              `}
                               variants={techVariants}
                               whileHover="hover"
                               initial="initial"
-                              transition={{ type: "spring", stiffness: 260, damping: 15 }}
+                              transition={{ type: "spring", stiffness: 240, damping: 14 }}
                               title={tech}
                             >
                               {techIcons[tech as keyof typeof techIcons]}
@@ -184,10 +201,11 @@ const Projects = () => {
                             rel="noopener noreferrer"
                             className="
                               flex items-center gap-2 px-3 py-2 rounded-lg
-                              text-blue-400 hover:text-purple-400
-                              bg-white/5 hover:bg-purple-600/10
+                              text-blue-400 hover:text-purple-300
+                              bg-white/10 hover:bg-purple-800/20
                               transition-colors duration-200
-                              font-semibold
+                              font-semibold shadow
+                              ring-1 ring-white/10 hover:ring-purple-400/30
                             "
                           >
                             <Github size={18} /> Code
@@ -196,13 +214,14 @@ const Projects = () => {
                             href={project.live}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="
+                            className={`
                               flex items-center gap-2 px-3 py-2 rounded-lg
-                              text-blue-400 hover:text-blue-500
-                              bg-white/5 hover:bg-blue-600/10
+                              text-blue-400 hover:text-blue-300
+                              bg-white/10 hover:bg-blue-800/20
                               transition-colors duration-200
-                              font-semibold
-                            "
+                              font-semibold shadow
+                              ring-1 ring-white/10 hover:ring-blue-300/30
+                            `}
                           >
                             <Link size={18} /> Live Demo
                           </a>
@@ -218,18 +237,24 @@ const Projects = () => {
       </div>
       <style>{`
         .glass-morphism {
-          background: linear-gradient(120deg, #191e2c 80%, #212b4a44 100%);
-          border: 1.5px solid rgba(255,255,255,0.08);
-          box-shadow: 0 8px 32px 0 rgba(31,38,135,0.13);
-          backdrop-filter: blur(10px);
+          background: linear-gradient(130deg, #181d2a 77%, #22284544 100%);
+          border: 2px solid rgba(255,255,255,0.07);
+          box-shadow: 0 10px 38px 0 rgba(31,38,135,0.15);
+          backdrop-filter: blur(18px);
+        }
+        .project-card {
+          transition: box-shadow 0.3s, transform 0.30s;
+        }
+        .project-card:hover {
+          z-index: 1;
+        }
+        .tech-icon {
+          transition: transform 0.20s, background 0.2s, box-shadow 0.15s;
         }
         @media (max-width: 767px) {
-          .md\\:grid {
-            display: flex !important;
-          }
-          .CarouselItem {
-            min-width: 80vw;
-            max-width: 90vw;
+          .project-card {
+            min-width: 88vw;
+            max-width: 95vw;
           }
         }
       `}</style>
@@ -238,4 +263,3 @@ const Projects = () => {
 };
 
 export default Projects;
-
