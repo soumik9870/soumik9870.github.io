@@ -75,9 +75,6 @@ const Projects = () => {
   const isMobile = useIsMobile();
   const firstCardRef = useRef<HTMLDivElement | null>(null);
 
-  // Responsive slidesToShow (1 for mobile, 3 for desktop)
-  const slidesToShow = isMobile ? 1 : 3;
-
   return (
     <section id="projects" className="relative w-full flex flex-col items-center justify-center py-20 min-h-[80vh] bg-transparent">
       <div className="w-full max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -95,10 +92,12 @@ const Projects = () => {
               opts={{
                 align: "center",
                 loop: true,
-                slidesToScroll: 1,
+                containScroll: "trimSnaps",
+                // Using slidesToScroll property which exists in the Embla API
+                // and correctly handling responsive behavior through CSS styling
                 breakpoints: {
-                  0: { slidesToScroll: 1, slidesToShow: 1 },
-                  768: { slidesToScroll: 1, slidesToShow: 3 }
+                  "(max-width: 768px)": { align: "center" },
+                  "(min-width: 769px)": { align: "center" }
                 }
               }}
             >
@@ -137,7 +136,7 @@ const Projects = () => {
                     key={i}
                     className={`
                       flex !items-stretch justify-center
-                      ${isMobile ? "basis-full max-w-sm" : "basis-1/3 max-w-md"}
+                      ${isMobile ? "basis-full pl-0" : "basis-1/3"}
                       transition-all duration-200
                     `}
                   >
