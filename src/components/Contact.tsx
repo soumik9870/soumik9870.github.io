@@ -1,3 +1,4 @@
+
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
@@ -27,16 +28,20 @@ const Contact = () => {
       await new Promise(resolve => setTimeout(resolve, 1000));
       
       // Success toast notification
-      toast.success('Message sent successfully!', {
-        description: 'Thank you for your message. We will get back to you soon.',
+      toast({
+        title: "Success",
+        description: "Thank you for your message. We will get back to you soon.",
+        variant: "default",
       });
       
       // Reset form
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
       // Error toast notification
-      toast.error('Failed to send message', {
-        description: 'There was an error sending your message. Please try again.',
+      toast({
+        title: "Error",
+        description: "There was an error sending your message. Please try again.",
+        variant: "destructive",
       });
     } finally {
       setLoading(false);
