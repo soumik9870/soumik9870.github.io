@@ -11,7 +11,6 @@ import Skills from '../components/Skills';
 import Contact from '../components/Contact';
 import ScrollToTop from '../components/ScrollToTop';
 import { ThemeProvider } from '../contexts/ThemeContext';
-import { Toaster } from '@/components/ui/sonner';
 
 const Index = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -55,8 +54,6 @@ const Index = () => {
             <Projects />
             <Contact />
             <ScrollToTop />
-            
-            <Toaster position="top-right" />
           </motion.div>
         )}
       </AnimatePresence>
@@ -65,4 +62,3 @@ const Index = () => {
 };
 
 export default Index;
-

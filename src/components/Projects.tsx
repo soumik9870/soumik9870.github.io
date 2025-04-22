@@ -92,9 +92,9 @@ const Projects = () => {
               opts={{
                 align: "center",
                 loop: true,
-                dragFree: false,
-                containScroll: false,
-                slidesToScroll: 1,
+                dragFree: true,
+                skipSnaps: true,
+                speed: 15, // Faster sliding speed (lower number = faster)
               }}
             >
               {/* Custom Nav arrows - only show on desktop */}
@@ -137,7 +137,7 @@ const Projects = () => {
                     key={i}
                     className={`
                       flex !items-stretch justify-center
-                      ${isMobile ? "basis-full pl-0" : "basis-1/3"}
+                      ${isMobile ? "basis-full pl-4" : "basis-1/3"}
                       transition-all duration-200
                     `}
                   >

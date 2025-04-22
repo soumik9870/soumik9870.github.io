@@ -61,6 +61,7 @@ const Carousel = React.forwardRef<
       {
         ...opts,
         axis: orientation === "horizontal" ? "x" : "y",
+        speed: 25, // Faster default speed (lower = faster)
       },
       plugins
     )
