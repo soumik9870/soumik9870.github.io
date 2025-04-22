@@ -94,7 +94,7 @@ const Projects = () => {
                 loop: true,
                 dragFree: true,
                 skipSnaps: true,
-                speed: 15, // Faster sliding speed (lower number = faster)
+                duration: 15, // Control slide animation duration (lower = faster)
               }}
             >
               {/* Custom Nav arrows - only show on desktop */}

@@ -1,4 +1,3 @@
-
 import * as React from "react"
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
@@ -61,7 +60,6 @@ const Carousel = React.forwardRef<
       {
         ...opts,
         axis: orientation === "horizontal" ? "x" : "y",
-        speed: 25, // Faster default speed (lower = faster)
       },
       plugins
     )
