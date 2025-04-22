@@ -1,3 +1,4 @@
+
 import { motion } from "framer-motion";
 import {
   Github,
@@ -93,7 +94,7 @@ const Projects = () => {
                 loop: true,
                 dragFree: true,
                 skipSnaps: true,
-                duration: 15, // Control slide animation duration (lower = faster)
+                duration: 8, // Faster animation duration
               }}
             >
               {/* Custom Nav arrows - only show on desktop */}
@@ -136,7 +137,7 @@ const Projects = () => {
                     key={i}
                     className={`
                       flex !items-stretch justify-center
-                      ${isMobile ? "basis-full pl-4" : "basis-1/3"}
+                      ${isMobile ? "basis-[85%] min-w-[85%] pl-4" : "basis-1/3"}
                       transition-all duration-200
                     `}
                   >
@@ -252,7 +253,7 @@ const Projects = () => {
         }
         @media (max-width: 767px) {
           .project-card {
-            min-width: 88vw;
+            min-width: 85%;
             max-width: 95vw;
           }
         }
