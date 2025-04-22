@@ -17,7 +17,7 @@ import {
   CarouselNext,
 } from "@/components/ui/carousel";
 import { Card, CardHeader, CardTitle, CardContent, CardDescription } from "@/components/ui/card";
-import { useRef } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
 const techIcons = {
@@ -74,6 +74,24 @@ const techVariants = {
 const Projects = () => {
   const isMobile = useIsMobile();
   const firstCardRef = useRef<HTMLDivElement | null>(null);
+  const [carouselApi, setCarouselApi] = useState<any>(null);
+
+  useEffect(() => {
+    if (carouselApi) {
+      const onSelect = () => {
+        // Add custom animations for slide change
+        document.querySelectorAll('.project-card').forEach((card) => {
+          card.classList.add('transition-transform');
+        });
+      };
+
+      carouselApi.on('select', onSelect);
+      
+      return () => {
+        carouselApi.off('select', onSelect);
+      };
+    }
+  }, [carouselApi]);
 
   return (
     <section id="projects" className="relative w-full flex flex-col items-center justify-center py-20 min-h-[80vh] bg-transparent">
@@ -91,11 +109,12 @@ const Projects = () => {
               className="mx-auto w-full max-w-5xl relative"
               opts={{
                 align: "center",
-                loop: true,
-                dragFree: true,
-                skipSnaps: true,
-                duration: 8, // Faster animation duration
+                loop: false, // Disable loop to stop at the end of projects
+                dragFree: false, // More controlled dragging
+                containScroll: "trimSnaps", // Better containment for mobile
+                duration: 250, // Faster animation for smoother feel
               }}
+              setApi={setCarouselApi}
             >
               {/* Custom Nav arrows - only show on desktop */}
               {!isMobile && (
@@ -127,32 +146,33 @@ const Projects = () => {
               
               <CarouselContent
                 className={`
-                  flex justify-center items-stretch
+                  flex justify-center items-center
                   gap-8 py-10
-                  transition-all duration-200
+                  transition-all duration-300
                 `}
               >
                 {projects.map((project, i) => (
                   <CarouselItem
                     key={i}
                     className={`
-                      flex !items-stretch justify-center
-                      ${isMobile ? "basis-[85%] min-w-[85%] pl-4" : "basis-1/3"}
-                      transition-all duration-200
+                      flex items-center justify-center
+                      ${isMobile ? "basis-full min-w-full pl-0" : "basis-1/3"}
+                      transition-all duration-300 ease-in-out
                     `}
                   >
                     <motion.div
                       className={`
-                        w-full h-full group cursor-pointer
+                        w-full ${isMobile ? "max-w-[85%] mx-auto" : ""}
+                        group cursor-pointer
                         flex flex-col
                         rounded-3xl glass-morphism border-2 border-white/10
                         shadow-2xl hover:shadow-blue-700/20
                         bg-gradient-to-br from-[#191e2c]/95 via-[#232d62]/85 to-[#0e1121]/90
                         transition-all duration-300
                         relative
-                        ${isMobile ? "mx-auto" : ""}
                         project-card
                         overflow-hidden
+                        animate-card-appear
                       `}
                       variants={cardVariants}
                       initial="initial"
@@ -170,7 +190,7 @@ const Projects = () => {
                         </CardDescription>
                       </CardHeader>
                       <CardContent className="flex flex-col gap-3 flex-1">
-                        {/* Tech icons row only (no names) */}
+                        {/* Tech icons row */}
                         <div className="flex flex-wrap gap-3 mb-3 mt-4">
                           {project.tech.map((tech, ti) => (
                             <motion.div
@@ -251,10 +271,19 @@ const Projects = () => {
         .tech-icon {
           transition: transform 0.20s, background 0.2s, box-shadow 0.15s;
         }
+        @keyframes cardAppear {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-card-appear {
+          animation: cardAppear 0.5s ease-out forwards;
+        }
         @media (max-width: 767px) {
           .project-card {
-            min-width: 85%;
-            max-width: 95vw;
+            width: 100%;
+            max-width: 85%;
+            margin-left: auto;
+            margin-right: auto;
           }
         }
       `}</style>
