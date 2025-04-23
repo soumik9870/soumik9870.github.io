@@ -9,9 +9,9 @@ const Hero = () => {
   const [delta, setDelta] = useState(200 - Math.random() * 100);
   
   const skills = [
-    "Frontend Developer",
+    "Full-Stack Developer",
     "UI/UX Enthusiast",
-    "React Developer",
+    "Next Developer",
     "TypeScript Expert"
   ];
   
@@ -60,8 +60,8 @@ const Hero = () => {
 
   // Quick links data with icons
   const quickLinks = [
-    { name: "GitHub", icon: <Github size={24} />, url: "https://github.com" },
-    { name: "LinkedIn", icon: <Linkedin size={24} />, url: "https://linkedin.com" },
+    { name: "GitHub", icon: <Github size={24} />, url: "https://github.com/soumik9870" },
+    { name: "LinkedIn", icon: <Linkedin size={24} />, url: "https://linkedin.com/soumiksaha827" },
     { name: "Portfolio", icon: <Globe size={24} />, url: "https://portfolio.com" },
     { name: "Resume", icon: <FileText size={24} />, url: "https://resume.com" }
   ];
@@ -76,7 +76,7 @@ const Hero = () => {
             transition={{ duration: 0.8 }}
           >
             <h1 className="text-4xl md:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-400 to-blue-500 bg-clip-text text-transparent">
-              John Doe
+              Soumik Saha
             </h1>
           </motion.div>
           

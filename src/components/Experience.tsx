@@ -4,23 +4,17 @@ import { Briefcase, Calendar } from 'lucide-react';
 
 const experiences = [
   {
-    position: "Senior Frontend Developer",
-    company: "Tech Solutions Inc.",
-    duration: "2022 - Present",
-    description: "Lead the development of responsive web applications using React, TypeScript, and Tailwind CSS."
-  },
-  {
-    position: "Frontend Developer",
-    company: "Digital Innovations",
-    duration: "2020 - 2022",
-    description: "Developed and maintained multiple client websites and collaborated with designers."
-  },
-  {
     position: "Web Developer Intern",
-    company: "StartUp Ventures",
-    duration: "2019 - 2020",
-    description: "Assisted in the development of web applications with modern JavaScript frameworks."
-  }
+    company: "Cognify Technologies",
+    duration: "Oct-2024 - Nov-2024",
+    description: "Developing responsive web applications using React, TypeScript, and Tailwind CSS."
+  },
+  {
+    position: "Open Source Contribution",
+    company: "None",
+    duration: "2024 - present",
+    description: "designing websites in github."
+  },
 ];
 
 const Experience = () => {
