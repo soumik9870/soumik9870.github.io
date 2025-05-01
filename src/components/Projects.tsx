@@ -8,6 +8,8 @@ import {
   Globe,
   Layout,
   FileJson,
+  ChevronLeft,
+  ChevronRight
 } from "lucide-react";
 import {
   Carousel,
@@ -71,10 +73,23 @@ const techVariants = {
   hover: { scale: 1.17, opacity: 1, transition: { type: "spring", stiffness: 240, damping: 12 } }
 };
 
+const slideHintVariants = {
+  initial: { opacity: 0.5 },
+  animate: { 
+    opacity: [0.5, 0.8, 0.5], 
+    transition: { 
+      repeat: Infinity, 
+      duration: 1.5,
+      ease: "easeInOut" 
+    }
+  }
+};
+
 const Projects = () => {
   const isMobile = useIsMobile();
   const firstCardRef = useRef<HTMLDivElement | null>(null);
   const [carouselApi, setCarouselApi] = useState<any>(null);
+  const [slideHintVisible, setSlideHintVisible] = useState(true);
 
   useEffect(() => {
     if (carouselApi) {
@@ -83,6 +98,9 @@ const Projects = () => {
         document.querySelectorAll('.project-card').forEach((card) => {
           card.classList.add('transition-transform');
         });
+        
+        // Hide slide hint after first interaction
+        setSlideHintVisible(false);
       };
 
       carouselApi.on('select', onSelect);
@@ -109,45 +127,16 @@ const Projects = () => {
               className="mx-auto w-full max-w-5xl relative"
               opts={{
                 align: "center",
-                loop: false, // Disable loop to stop at the end of projects
-                dragFree: false, // More controlled dragging
-                containScroll: "trimSnaps", // Better containment for mobile
-                duration: 250, // Faster animation for smoother feel
+                containScroll: "trimSnaps",
+                dragFree: true, // Allows free-form dragging for smoother feel
+                duration: 25, // Set to 25ms for fast, smooth transitions
               }}
               setApi={setCarouselApi}
-            >
-              {/* Custom Nav arrows - only show on desktop */}
-              {!isMobile && (
-                <>
-                  <CarouselPrevious className="
-                    absolute left-0 z-30
-                    -translate-y-1/2 top-1/2
-                    bg-gradient-to-r from-[#141826]/80 via-[#232a43]/70 to-transparent
-                    backdrop-blur-lg border border-white/20
-                    shadow-md hover:shadow-blue-400/40
-                    text-blue-300/80 hover:text-purple-400
-                    hover:scale-105 transition-all duration-200
-                    ring-0 focus:outline-none focus:ring-2 focus:ring-blue-500/40
-                  " aria-label="Previous projects"
-                  />
-                  <CarouselNext className="
-                    absolute right-0 z-30
-                    -translate-y-1/2 top-1/2
-                    bg-gradient-to-l from-[#141826]/80 via-[#232a43]/70 to-transparent
-                    backdrop-blur-lg border border-white/20
-                    shadow-md hover:shadow-blue-400/40
-                    text-blue-300/80 hover:text-purple-400
-                    hover:scale-105 transition-all duration-200
-                    ring-0 focus:outline-none focus:ring-2 focus:ring-blue-500/40
-                  " aria-label="Next projects"
-                  />
-                </>
-              )}
-              
+            >              
               <CarouselContent
                 className={`
                   flex justify-center items-center
-                  gap-8 py-10
+                  gap-4 py-10
                   transition-all duration-300
                 `}
               >
@@ -156,13 +145,14 @@ const Projects = () => {
                     key={i}
                     className={`
                       flex items-center justify-center
-                      ${isMobile ? "basis-full min-w-full pl-0" : "basis-1/3"}
+                      ${isMobile ? "basis-[85%] mx-auto" : "basis-1/3"}
                       transition-all duration-300 ease-in-out
+                      carousel-item
                     `}
                   >
                     <motion.div
                       className={`
-                        w-full ${isMobile ? "max-w-[85%] mx-auto" : ""}
+                        w-full mx-auto
                         group cursor-pointer
                         flex flex-col
                         rounded-3xl glass-morphism border-2 border-white/10
@@ -251,6 +241,28 @@ const Projects = () => {
                   </CarouselItem>
                 ))}
               </CarouselContent>
+              
+              {/* Slide hint indicators */}
+              {slideHintVisible && (
+                <>
+                  <motion.div 
+                    className="absolute left-2 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center"
+                    variants={slideHintVariants}
+                    initial="initial"
+                    animate="animate"
+                  >
+                    <ChevronLeft className="w-8 h-8 text-blue-400/70" />
+                  </motion.div>
+                  <motion.div 
+                    className="absolute right-2 top-1/2 -translate-y-1/2 hidden md:flex items-center justify-center"
+                    variants={slideHintVariants}
+                    initial="initial"
+                    animate="animate"
+                  >
+                    <ChevronRight className="w-8 h-8 text-blue-400/70" />
+                  </motion.div>
+                </>
+              )}
             </Carousel>
           </div>
         </motion.div>
@@ -278,13 +290,25 @@ const Projects = () => {
         .animate-card-appear {
           animation: cardAppear 0.5s ease-out forwards;
         }
+        
+        /* Mobile optimization */
         @media (max-width: 767px) {
-          .project-card {
-            width: 100%;
-            max-width: 85%;
-            margin-left: auto;
-            margin-right: auto;
+          .carousel-item {
+            margin: 0 auto !important;
+            width: 85% !important;
           }
+        }
+        
+        /* Embla carousel custom styles */
+        .embla {
+          overflow: hidden;
+        }
+        .embla__container {
+          display: flex;
+        }
+        .embla__slide {
+          flex: 0 0 auto;
+          min-width: 0;
         }
       `}</style>
     </section>

@@ -61,6 +61,7 @@ const Carousel = React.forwardRef<
       {
         ...opts,
         axis: orientation === "horizontal" ? "x" : "y",
+        duration: 20, // Make sliding animations fast by default (20ms)
       },
       plugins
     )
