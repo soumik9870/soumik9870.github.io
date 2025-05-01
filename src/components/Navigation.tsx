@@ -37,6 +37,14 @@ const Navigation = () => {
     }
   };
 
+  const scrollToTop = () => {
+    const heroSection = document.getElementById('home');
+    if (heroSection) {
+      heroSection.scrollIntoView({ behavior: 'smooth' });
+      setIsOpen(false);
+    }
+  };
+
   return (
     <nav className={`fixed w-full z-50 transition-all duration-500 ${
       isScrolled ? 'bg-black/30 backdrop-blur-xl border-b border-white/10' : 'bg-transparent'
@@ -50,7 +58,8 @@ const Navigation = () => {
                 initial={{ opacity: 0, x: -20 }}
                 animate={{ opacity: 1, x: 0 }}
                 exit={{ opacity: 0, x: -20 }}
-                className="text-2xl font-bold text-white"
+                className="text-2xl font-bold text-white cursor-pointer"
+                onClick={scrollToTop}
               >
                 DevPortfolio
               </motion.div>
@@ -60,7 +69,8 @@ const Navigation = () => {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.8 }}
-                className="relative"
+                className="relative cursor-pointer"
+                onClick={scrollToTop}
               >
                 <Avatar className="w-10 h-10 border-2 border-blue-400">
                   <AvatarImage src="https://github.com/shadcn.png" alt="Profile" />
