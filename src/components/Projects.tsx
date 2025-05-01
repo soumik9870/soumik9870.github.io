@@ -126,18 +126,19 @@ const Projects = () => {
             <Carousel
               className="mx-auto w-full max-w-5xl relative"
               opts={{
-                align: "center",
-                containScroll: "keepSnaps", // Use keepSnaps for better scrolling
+                align: "start", // Change from "center" to "start" to make first card accessible
+                containScroll: "keepSnaps",
                 dragFree: true,          
-                duration: 12, // Even faster, ultra-smooth transitions
-                inViewThreshold: 0.8,    // Show slides when 80% in view
+                duration: 12,
+                inViewThreshold: 0.8,
+                startIndex: 0, // Explicitly set startIndex to 0
               }}
               setApi={setCarouselApi}
             >              
               <CarouselContent
                 className={`
-                  flex justify-center items-center
-                  gap-4 py-10
+                  flex justify-start items-center
+                  gap-4 py-10 pl-0
                   transition-all duration-150 ease-out
                 `}
               >
@@ -146,7 +147,7 @@ const Projects = () => {
                     key={i}
                     className={`
                       flex items-center justify-center
-                      ${isMobile ? "basis-[90%] mx-auto" : "basis-1/3"}
+                      ${isMobile ? "basis-[90%] pl-4 first:ml-0" : "basis-1/3"}
                       transition-all duration-150 ease-out
                       carousel-item
                     `}
@@ -295,8 +296,16 @@ const Projects = () => {
         /* Mobile optimization */
         @media (max-width: 767px) {
           .carousel-item {
-            margin: 0 auto !important;
+            margin: 0 !important;
             width: 90% !important;
+          }
+          
+          /* Make first card fully accessible in mobile view */
+          .embla__container {
+            padding-left: 0 !important;
+          }
+          .embla__slide:first-child {
+            margin-left: 0 !important;
           }
         }
         
@@ -308,6 +317,7 @@ const Projects = () => {
           display: flex;
           transition-property: transform;
           transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1.0);
+          padding-left: 0; /* Remove default padding */
         }
         .embla__slide {
           flex: 0 0 auto;
