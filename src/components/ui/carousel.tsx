@@ -1,4 +1,3 @@
-
 import * as React from "react"
 import useEmblaCarousel, {
   type UseEmblaCarouselType,
@@ -61,7 +60,7 @@ const Carousel = React.forwardRef<
       {
         ...opts,
         axis: orientation === "horizontal" ? "x" : "y",
-        duration: 20, // Make sliding animations fast by default (20ms)
+        duration: 15, // Make scrolling even faster (15ms instead of 20ms)
       },
       plugins
     )
@@ -78,11 +77,11 @@ const Carousel = React.forwardRef<
     }, [])
 
     const scrollPrev = React.useCallback(() => {
-      api?.scrollPrev()
+      api?.scrollPrev({ immediate: false })
     }, [api])
 
     const scrollNext = React.useCallback(() => {
-      api?.scrollNext()
+      api?.scrollNext({ immediate: false })
     }, [api])
 
     const handleKeyDown = React.useCallback(

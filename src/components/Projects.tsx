@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import {
   Github,
@@ -94,9 +93,10 @@ const Projects = () => {
   useEffect(() => {
     if (carouselApi) {
       const onSelect = () => {
-        // Add custom animations for slide change
+        // Add smooth animations for slide change
         document.querySelectorAll('.project-card').forEach((card) => {
           card.classList.add('transition-transform');
+          card.classList.add('transition-duration-150');
         });
         
         // Hide slide hint after first interaction
@@ -127,9 +127,10 @@ const Projects = () => {
               className="mx-auto w-full max-w-5xl relative"
               opts={{
                 align: "center",
-                containScroll: "trimSnaps",
-                dragFree: true, // Allows free-form dragging for smoother feel
-                duration: 25, // Set to 25ms for fast, smooth transitions
+                containScroll: "keepSnaps", // Use keepSnaps for better scrolling
+                dragFree: true,          
+                duration: 12, // Even faster, ultra-smooth transitions
+                inViewThreshold: 0.8,    // Show slides when 80% in view
               }}
               setApi={setCarouselApi}
             >              
@@ -137,7 +138,7 @@ const Projects = () => {
                 className={`
                   flex justify-center items-center
                   gap-4 py-10
-                  transition-all duration-300
+                  transition-all duration-150 ease-out
                 `}
               >
                 {projects.map((project, i) => (
@@ -145,8 +146,8 @@ const Projects = () => {
                     key={i}
                     className={`
                       flex items-center justify-center
-                      ${isMobile ? "basis-[85%] mx-auto" : "basis-1/3"}
-                      transition-all duration-300 ease-in-out
+                      ${isMobile ? "basis-[90%] mx-auto" : "basis-1/3"}
+                      transition-all duration-150 ease-out
                       carousel-item
                     `}
                   >
@@ -158,7 +159,7 @@ const Projects = () => {
                         rounded-3xl glass-morphism border-2 border-white/10
                         shadow-2xl hover:shadow-blue-700/20
                         bg-gradient-to-br from-[#191e2c]/95 via-[#232d62]/85 to-[#0e1121]/90
-                        transition-all duration-300
+                        transition-all duration-150
                         relative
                         project-card
                         overflow-hidden
@@ -275,7 +276,7 @@ const Projects = () => {
           backdrop-filter: blur(18px);
         }
         .project-card {
-          transition: box-shadow 0.3s, transform 0.30s;
+          transition: transform 0.15s ease-out, box-shadow 0.15s ease;
         }
         .project-card:hover {
           z-index: 1;
@@ -295,7 +296,7 @@ const Projects = () => {
         @media (max-width: 767px) {
           .carousel-item {
             margin: 0 auto !important;
-            width: 85% !important;
+            width: 90% !important;
           }
         }
         
@@ -305,10 +306,13 @@ const Projects = () => {
         }
         .embla__container {
           display: flex;
+          transition-property: transform;
+          transition-timing-function: cubic-bezier(0.25, 0.1, 0.25, 1.0);
         }
         .embla__slide {
           flex: 0 0 auto;
           min-width: 0;
+          transition: opacity 0.15s ease;
         }
       `}</style>
     </section>
