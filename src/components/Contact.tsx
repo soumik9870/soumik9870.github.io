@@ -1,8 +1,10 @@
+
 import { motion } from 'framer-motion';
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Mail, Send, Phone, MapPin } from 'lucide-react';
 import { toast } from 'sonner';
+import emailjs from 'emailjs-com';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -21,10 +23,22 @@ const Contact = () => {
     e.preventDefault();
     setLoading(true);
     
-    // Simulate form submission
     try {
-      // Simulate API call with timeout
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // EmailJS service to send the email
+      const templateParams = {
+        to_email: 'soumiksaha827@gmail.com',
+        from_name: formData.name,
+        from_email: formData.email,
+        message: formData.message,
+        reply_to: formData.email
+      };
+      
+      await emailjs.send(
+        'service_id', // You'll need to replace this with your EmailJS service ID
+        'template_id', // You'll need to replace this with your EmailJS template ID
+        templateParams,
+        'user_id' // You'll need to replace this with your EmailJS user ID
+      );
       
       // Success toast notification using sonner
       toast.success("Message sent successfully!", {
@@ -34,6 +48,7 @@ const Contact = () => {
       // Reset form
       setFormData({ name: '', email: '', message: '' });
     } catch (error) {
+      console.error("Error sending email:", error);
       // Error toast notification using sonner
       toast.error("Failed to send message", {
         description: "There was an error sending your message. Please try again."
