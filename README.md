@@ -1,7 +1,7 @@
 
 # DevPortfolio
 
-![DevPortfolio Banner](https://i.imgur.com/XDtb9kP.png)
+![DevPortfolio Banner](https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7?auto=format&fit=crop&w=1600&h=400&q=80)
 
 ## Overview
 
